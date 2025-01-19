@@ -2,6 +2,9 @@
 ```markdown
 # Documentation de l'API Reqres - CRUD Products
 
+### API URL : https://reqres.in/api
+
+
 Cette API permet de simuler la gestion des produits en utilisant l'API **Reqres** pour les utilisateurs, que nous adaptons pour représenter des produits.
 
 ## Endpoints disponibles
