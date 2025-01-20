@@ -51,7 +51,7 @@ export default function Home() {
             </ol>
         ))
       ) : (
-        <ol>Aucune tache</ol>
+        <ol>Aucune Tache</ol>
       )}
       
     </ul>
