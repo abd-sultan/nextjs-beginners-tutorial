@@ -16,6 +16,8 @@ export default function ProductManager() {
   const [editingId, setEditingId] = useState<number | null>(null);
   const API_URL = "https://reqres.in/api/products";
 
+  // function pour recuperer les produits
+
   useEffect(() => {
     axios.get(API_URL).then((res) => {
       setProducts(
@@ -34,21 +36,27 @@ export default function ProductManager() {
     });
   }, []);
 
+// function pour ajouter ou modifier un produit
   const handleSubmit = async () => {
     if (!form.name || !form.price || !form.description) return alert("Tous les champs sont requis.");
     if (editingId) {
+      // PUT request pour modifier un produit existant
       await axios.put(`${API_URL}/${editingId}`, form);
       setProducts((prev) =>
         prev.map((p) => (p.id === editingId ? { ...p, ...form } : p))
       );
     } else {
+
+      // POST request pour ajouter un nouveau produit
       const res = await axios.post(API_URL, form);
       setProducts((prev) => [...prev, { ...form, id: res.data.id }]);
     }
+    // reunitialiser le formulaire aprés l'ajout ou la modification
     setForm({ name: "", price: 0, description: "" });
     setEditingId(null);
   };
 
+ // function pour supprimer un produit
   const handleDelete = async (id: number) => {
     await axios.delete(`${API_URL}/${id}`);
     setProducts((prev) => prev.filter((p) => p.id !== id));
@@ -56,7 +64,7 @@ export default function ProductManager() {
 
   return (
     <div className="p-4">
-      <h1 className="text-xl font-bold">Gestion des Produits</h1>
+      <h1 className="text-xl font-bold">Dashboard of Products</h1>
       <div className="my-4">
         <input
           placeholder="Name"
@@ -83,8 +91,8 @@ export default function ProductManager() {
       </div>
       <ul>
       {products.length === 0 && (
-  <p className="text-center font-bold text-white-500">Aucun produit disponible pour le moment.</p>
-)}
+         <p className="text-center font-bold text-white-500">Aucun produit disponible pour le moment.</p>
+       )}
         {products.map((p) => (
           <li key={p.id} className="flex justify-between p-2 border-b">
             <div>
